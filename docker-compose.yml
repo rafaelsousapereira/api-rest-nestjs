@@ -1,16 +1,41 @@
-version: '3.9'
+version: '3.8'
 
 services:
   postgres:
+    image: postgres:latest
     container_name: api_rest_nestjs
-    image: postgres
+    environment:
+      POSTGRES_USER: ${DATABASE_USERNAME}
+      POSTGRES_PASSWORD: ${DATABASE_PASSWORD}
+      POSTGRES_DB: ${DATABASE}
+      PGDATA: /var/lib/postgresql/data
+    volumes:
+      - /pgdata:/var/lib/postgresql/data
     ports:
       - "5432:5432"
+    networks:
+      - pg-network
+    restart: unless-stopped
+
+  pgadmin:
+    image: dpage/pgadmin4:8.8
     environment:
-      POSTGRES_USER: admin
-      POSTGRES_PASSWORD: admin
-      POSTGRES_DB: api_nestjs
-  adminer:
-    image: adminer
+      PGADMIN_DEFAULT_EMAIL: ${PGADMIN_DEFAULT_EMAIL}
+      PGADMIN_DEFAULT_PASSWORD: ${PGADMIN_DEFAULT_PASSWORD}
+      PGADMIN_LISTEN_PORT: ${PGADMIN_LISTEN_PORT}
     ports:
-      - 8080:8080
+      - "5050:80"
+    networks:
+      - pg-network
+    volumes:
+      - pgadmin-data:/var/lib/pgadmin
+    user: "${UID}:${GID}"
+    restart: unless-stopped
+
+networks:
+  pg-network:
+    driver: bridge
+
+volumes:
+  pgdata:
+  pgadmin-data:
