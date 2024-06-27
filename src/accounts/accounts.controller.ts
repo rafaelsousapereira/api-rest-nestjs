@@ -2,8 +2,9 @@ import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/commo
 import { AccountsService } from './accounts.service';
 import { CreateAccountDto } from './dto/create-account.dto';
 import { UpdateAccountDto } from './dto/update-account.dto';
+import { UUID } from 'crypto';
 
-@Controller('accounts')
+@Controller('account')
 export class AccountsController {
   constructor(private readonly accountsService: AccountsService) {}
 
@@ -18,17 +19,17 @@ export class AccountsController {
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.accountsService.findOne(+id);
+  findOne(@Param('id') id: UUID) {
+    return this.accountsService.findOne(id);
   }
 
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateAccountDto: UpdateAccountDto) {
-    return this.accountsService.update(+id, updateAccountDto);
+  update(@Param('id') id: UUID, @Body() updateAccountDto: UpdateAccountDto) {
+    return this.accountsService.update(id, updateAccountDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.accountsService.remove(+id);
+  remove(@Param('id') id: UUID) {
+    return this.accountsService.remove(id);
   }
 }

@@ -1,21 +1,10 @@
 import { Module } from '@nestjs/common';
 import { AccountsModule } from './accounts/accounts.module';
-import { TypeOrmModule } from '@nestjs/typeorm';
+import { PaymentsModule } from './payments/payments.module';
 
 @Module({
-  imports: [TypeOrmModule.forRoot({
-    type: 'postgres',
-    host: 'localhost',
-    port: 5432,
-    username: 'admin',
-    password: 'admin',
-    database: 'api_nestjs',
-    entities: [],
-    synchronize: true,
-    logging: true,
-  }),
-  AccountsModule],
+  imports: [AccountsModule, PaymentsModule],
   controllers: [],
-  providers: [],
+  providers: []
 })
 export class AppModule {}
