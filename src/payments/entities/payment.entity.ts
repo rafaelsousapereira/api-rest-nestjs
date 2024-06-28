@@ -10,7 +10,7 @@ export class Payment {
 
   @ManyToOne(() => Account, account => account.payments)
   @JoinColumn({ name: 'account_id' })
-  account: Account;
+  accountId: Account;
 
   @Column({ type: 'numeric' })
   value: number;

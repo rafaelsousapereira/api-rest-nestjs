@@ -28,6 +28,6 @@ export class Account {
   @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz', nullable: true })
   updatedAt: Date;
 
-  @OneToMany(() => Payment, payment => payment.account)
+  @OneToMany(() => Payment, payment => payment.accountId)
   payments: Payment[];
 }
