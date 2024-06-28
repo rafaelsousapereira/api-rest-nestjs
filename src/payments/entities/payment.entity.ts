@@ -1,6 +1,6 @@
 import { UUID } from "crypto";
 import { Account } from "src/accounts/entities/account.entity";
-import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Payment {
@@ -8,9 +8,9 @@ export class Payment {
   @PrimaryGeneratedColumn('uuid')
   id: UUID;
 
-  @Column({ name: 'account_id', type: 'uuid' })
-  @ManyToOne(() => Account, account => account.id)
-  accountId: UUID;
+  @ManyToOne(() => Account, account => account.payments)
+  @JoinColumn({ name: 'account_id' })
+  account: Account;
 
   @Column({ type: 'numeric' })
   value: number;
