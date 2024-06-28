@@ -18,4 +18,5 @@ export class CreateAccountDto {
   balance: number;
 
   createdAt: Date;
+  updatedAt: Date;
 }

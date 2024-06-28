@@ -16,7 +16,7 @@ export const databaseProviders = [
         entities: [
             __dirname + '/../**/*.entity{.ts,.js}',
         ],
-        synchronize: (process.env.DB_SYNCHRONIZE === 'true'),
+        synchronize: (process.env.DATABASE_SYNCHRONIZE === 'true'),
       });
 
       return dataSource.initialize();

@@ -15,8 +15,10 @@ export class CreatePaymentDto {
 
   @IsDate()
   @IsNotEmpty()
-  dateAt: Date;
+  date: Date;
 
   @IsString()
   description?: string;
+
+  updatedAt: Date;
 }

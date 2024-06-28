@@ -45,8 +45,12 @@ export class AccountsService {
     account.balance = updateAccountDto.balance
     account.createdAt = updateAccountDto.createdAt
 
-    if (!account.id) {
-      throw new NotFoundException(`Account not found - id: [${id}]`)
+    const accountId = account.id !== id || id === null
+
+    if (accountId) {
+      throw new NotFoundException(`Account with ID ${id} does not exist or is wrong`, {
+        cause: new Error(), description: `Check account id and try again`,
+      })
     }
 
     return this.accountRepository.update(id, account)

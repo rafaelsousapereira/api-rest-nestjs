@@ -1,5 +1,5 @@
 import { UUID } from "crypto";
-import { Column, Entity, PrimaryColumn, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, PrimaryColumn, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Account {
@@ -13,9 +13,12 @@ export class Account {
   @Column({ name: 'account_type', type: 'enum', enum: ['CURRENT', 'SAVINGS']})
   accountType: AccountTypeEnum;
 
-  @Column({ type: 'bigint' })
+  @Column({ type: 'numeric' })
   balance: number;
 
-  @Column({ name: 'created_at', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
+  @CreateDateColumn({ name: 'created_at', type: 'timestamptz', nullable: false, })
   createdAt: Date;
+
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz', nullable: true })
+  updatedAt: Date;
 }

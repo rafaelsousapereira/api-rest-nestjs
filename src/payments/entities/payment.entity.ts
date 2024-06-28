@@ -1,6 +1,6 @@
 import { UUID } from "crypto";
 import { Account } from "src/accounts/entities/account.entity";
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from "typeorm";
+import { Column, CreateDateColumn, Entity, ManyToOne, PrimaryGeneratedColumn, UpdateDateColumn } from "typeorm";
 
 @Entity()
 export class Payment {
@@ -12,12 +12,15 @@ export class Payment {
   @ManyToOne(() => Account, account => account.id)
   accountId: UUID;
 
-  @Column({ type: 'bigint' })
+  @Column({ type: 'numeric' })
   value: number;
 
-  @Column({ name: 'date_at', type: 'timestamptz', default: () => 'CURRENT_TIMESTAMP' })
-  dateAt: Date;
+  @CreateDateColumn({ type: 'timestamptz', nullable: false  })
+  date: Date;
 
   @Column({ type: 'varchar', length: 255 })
   description: string;
+
+  @UpdateDateColumn({ name: 'updated_at', type: 'timestamptz', nullable: true })
+  updatedAt: Date;
 }
